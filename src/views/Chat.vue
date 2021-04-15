@@ -11,6 +11,7 @@
 				<MessagesList />
 				<ConversationControls />
 			</div>
+			<ConversationPlaceholder v-else />
 		</div>
 
 		<ProfileModal />
@@ -29,6 +30,7 @@
 	import ConversationsList from '@/components/conversations/ConversationsList';
 	import ConversationHeader from '@/components/conversation/ConversationHeader';
 	import ConversationControls from '@/components/conversation/ConversationControls';
+	import ConversationPlaceholder from '@/components/conversation/ConversationPlaceholder';
 	import MessagesList from '@/components/conversation/MessagesList';
 	import ProfileModal from '@/components/modals/ProfileModal';
 	import EditProfileModal from '@/components/modals/EditProfileModal';
@@ -42,6 +44,7 @@
 			ConversationsList,
 			ConversationHeader,
 			ConversationControls,
+			ConversationPlaceholder,
 			MessagesList,
 			ProfileModal,
 			EditProfileModal,
@@ -192,6 +195,10 @@
 					position: absolute;
 					width: 100%;
 					height: 100%;
+				}
+
+				.conversation-placeholder {
+					display: none;
 				}
 			}
 		}
