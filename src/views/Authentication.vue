@@ -82,8 +82,10 @@
 			.tabs-component-panels {
 				padding: 20px;
 			}
+		}
 
-			@media (max-width: $mobile) {
+		@media (max-width: $small) {
+			.tabs-wrapper {
 				padding: 10px;
 				width: 100%;
 			}
