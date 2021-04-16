@@ -19,6 +19,7 @@
 		<StartConversationModal />
 		<SettingsModal />
 		<ConversationDetailsModal />
+		<ImagePreviewModal />
 	</div>
 </template>
 
@@ -37,6 +38,7 @@
 	import StartConversationModal from '@/components/modals/StartConversationModal';
 	import SettingsModal from '@/components/modals/SettingsModal';
 	import ConversationDetailsModal from '@/components/modals/ConversationDetailsModal';
+	import ImagePreviewModal from '@/components/modals/ImagePreviewModal';
 
 	export default {
 		components: {
@@ -50,7 +52,8 @@
 			EditProfileModal,
 			StartConversationModal,
 			SettingsModal,
-			ConversationDetailsModal
+			ConversationDetailsModal,
+			ImagePreviewModal
 		},
 		data() {
 			return {
