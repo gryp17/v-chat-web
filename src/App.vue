@@ -1,6 +1,9 @@
 <template>
 	<div id="app">
-		<LoadingIndicator v-show="loading" />
+		<LoadingIndicator
+			v-show="loading"
+			full-screen
+		/>
 		<router-view />
 	</div>
 </template>

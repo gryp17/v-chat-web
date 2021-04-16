@@ -82,7 +82,10 @@
 			 * @param {Object} e
 			 */
 			onChatScroll(e) {
-				if (e.target.scrollTop < 50) {
+				//hackfix for the flex-direction reverse-column negative scrollTop bug
+				//if this ever gets fixed revert to the old (desktop) code
+				const scrollPosition = (e.target.scrollHeight + e.target.scrollTop) - e.target.clientHeight;
+				if (scrollPosition < 50) {
 					this.fetchOlderMessages();
 				}
 			},
