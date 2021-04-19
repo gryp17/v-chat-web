@@ -20,6 +20,7 @@
 		<SettingsModal />
 		<ConversationDetailsModal />
 		<ImagePreviewModal />
+		<NotificationPermissionModal />
 	</div>
 </template>
 
@@ -27,6 +28,7 @@
 	import SocketIO from 'socket.io-client';
 	import { mapGetters, mapActions } from 'vuex';
 	import config from '@/config';
+	import { notificationPermissionRequested } from '@/utils/notifications';
 	import UserPanel from '@/components/UserPanel';
 	import ConversationsList from '@/components/conversations/ConversationsList';
 	import ConversationHeader from '@/components/conversation/ConversationHeader';
@@ -39,6 +41,7 @@
 	import SettingsModal from '@/components/modals/SettingsModal';
 	import ConversationDetailsModal from '@/components/modals/ConversationDetailsModal';
 	import ImagePreviewModal from '@/components/modals/ImagePreviewModal';
+	import NotificationPermissionModal from '@/components/modals/NotificationPermissionModal';
 
 	export default {
 		components: {
@@ -53,7 +56,8 @@
 			StartConversationModal,
 			SettingsModal,
 			ConversationDetailsModal,
-			ImagePreviewModal
+			ImagePreviewModal,
+			NotificationPermissionModal
 		},
 		data() {
 			return {
@@ -83,6 +87,10 @@
 
 			this.connectToSocket();
 			this.setLoading(false);
+
+			setTimeout(() => {
+				this.requestNotificationPermission();
+			}, 2000);
 		},
 		beforeDestroy() {
 			this.disconnectFromSocket();
@@ -155,6 +163,15 @@
 				if (this.socket) {
 					this.socket.disconnect();
 				}
+			},
+			/**
+			 * Opens the notification permission modal if the permissions haven't been allowed/denied yet
+			 */
+			requestNotificationPermission() {
+				if (!window.Notification || Notification.permission !== 'default' || notificationPermissionRequested()) {
+					return;
+				}
+				this.$modal.show('notification-permission-modal');
 			}
 		}
 	};

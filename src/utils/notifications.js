@@ -1,3 +1,30 @@
+import Cookies from 'js-cookie';
+import config from '@/config';
+
+/**
+ * Checks if the notification permission modal was displayed
+ * @returns {Boolean}
+ */
+function notificationPermissionRequested() {
+	return !!Cookies.get(config.notificationPermissionCookie);
+}
+
+/**
+ * Sets the notification permission cookie
+ * @param {Boolean} value
+ */
+function setNotificationPermissionRequested(value) {
+	Cookies.set(config.notificationPermissionCookie, value, { expires: 7 });
+}
+
+/**
+ * Displays the browser notification permission dialog
+ * @returns {Promise}
+ */
+async function requestNotificationPermission() {
+	return Notification.requestPermission();
+}
+
 /**
  * Shows a notification
  * @param {String} title
@@ -35,6 +62,9 @@ function showOnlineUserNotification(user) {
 }
 
 export {
+	notificationPermissionRequested,
+	setNotificationPermissionRequested,
+	requestNotificationPermission,
 	showNotification,
 	showNewMessageNotification,
 	showOnlineUserNotification
