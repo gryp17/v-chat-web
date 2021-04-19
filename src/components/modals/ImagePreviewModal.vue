@@ -86,8 +86,8 @@
 			position: relative;
 
 			.image-preview {
-				height: 450px;
-				background-size: cover;
+				height: 560px;
+				background-size: 100% 100%;
 			}
 
 			.controls {
