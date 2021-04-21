@@ -51,23 +51,17 @@
 				'getUserSession'
 			]),
 			/**
-			 * Initializes the app by figuring out which page to show and setting the axios URL
+			 * Initializes the app by figuring out which page to show
 			 */
 			async initializeApp() {
 				this.setLoading(true);
 
 				//get the user session
 				await this.getUserSession();
-
-				if (!this.isLoggedIn) {
-					this.redirectTo({
-						name: 'authentication'
-					});
-				} else {
-					this.redirectTo({
-						name: 'chat'
-					});
-				}
+				const page = this.isLoggedIn ? 'chat' : 'authentication';
+				await this.redirectTo({
+					name: page
+				});
 
 				this.setLoading(false);
 			},
@@ -77,7 +71,7 @@
 			 * @param {String} path
 			 */
 			redirectTo(path) {
-				this.$router.push(path).catch(() => {});
+				return this.$router.push(path).catch(() => {});
 			}
 		}
 	};
