@@ -4,6 +4,7 @@ import ConversationHttpService from '@/services/conversation';
 import UserHttpService from '@/services/user';
 import MessageHttpService from '@/services/message';
 import { showNewMessageNotification, showOnlineUserNotification } from '@/utils/notifications';
+import { setUnreadMessageTitle } from '@/utils/taskbar';
 
 const getDefaultState = () => {
 	return {
@@ -330,7 +331,6 @@ const actions = {
 		const conversationIsOpened = message.conversationId === context.state.selectedConversation;
 		const appIsFocused = context.rootState.ui.focused;
 		const messageNotificationsEnabled = context.rootState.settings.showMessageNotifications;
-		// const [mainWindow] = remote.BrowserWindow.getAllWindows();
 		const author = context.state.users[message.userId];
 		const conversation = context.state.conversations.find((conversation) => {
 			return conversation.id === message.conversationId;
@@ -355,7 +355,7 @@ const actions = {
 
 		//flash the taskbar
 		if (flashTaskbar) {
-			// mainWindow.flashFrame(true);
+			setUnreadMessageTitle();
 		}
 
 		//show new message notification

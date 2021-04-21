@@ -12,6 +12,9 @@
 	import Vue from 'vue';
 	import { mapGetters, mapActions } from 'vuex';
 
+	import { getVisibilityEventName, windowIsHidden } from '@/utils/visibility';
+	import { resetTitle } from '@/utils/taskbar';
+
 	import errorsMap from '@/filters/errorsMap';
 	import FormInput from '@/components/forms/FormInput';
 	import FormFileInput from '@/components/forms/FormFileInput';
@@ -42,10 +45,12 @@
 		},
 		created() {
 			this.initializeApp();
+			this.listenForVisibilityEvents();
 		},
 		methods: {
 			...mapActions('ui', [
-				'setLoading'
+				'setLoading',
+				'setFocused'
 			]),
 			...mapActions('auth', [
 				'getUserSession'
@@ -72,6 +77,22 @@
 			 */
 			redirectTo(path) {
 				return this.$router.push(path).catch(() => {});
+			},
+			/**
+			 * Listens for the visibility events and updates the focused property
+			 */
+			listenForVisibilityEvents() {
+				const eventName = getVisibilityEventName();
+				if (eventName) {
+					document.addEventListener(eventName, () => {
+						const focused = !windowIsHidden();
+						this.setFocused(focused);
+
+						if (focused) {
+							resetTitle();
+						}
+					});
+				}
 			}
 		}
 	};
