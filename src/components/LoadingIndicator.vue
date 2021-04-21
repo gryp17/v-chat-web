@@ -28,7 +28,7 @@
 		&.full-screen {
 			position: absolute;
 			background-color: $white;
-			z-index: 1;
+			z-index: 9999;
 		}
 	}
 </style>
