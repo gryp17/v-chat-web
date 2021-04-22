@@ -1,4 +1,13 @@
 module.exports = {
+	//change the app/html title
+	chainWebpack: (config) => {
+		config
+			.plugin('html')
+			.tap((args) => {
+				args[0].title = 'vChat';
+				return args;
+			});
+	},
 	css: {
 		loaderOptions: {
 			sass: {
